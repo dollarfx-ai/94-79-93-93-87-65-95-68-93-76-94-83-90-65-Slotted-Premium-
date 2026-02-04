@@ -1,27 +1,62 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Game Hub</title>
+  <title>My Game Hub</title>
   <style>
-    body { font-family: Arial; background:#111; color:white; text-align:center; }
-    button { padding:12px 20px; margin:8px; font-size:16px; cursor:pointer; }
-    iframe { width:100%; height:90vh; border:none; display:none; }
+    body {
+      font-family: Arial;
+      background:#111;
+      color:white;
+      text-align:center;
+    }
+    #gameButtons {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-bottom:20px;
+    }
+    button {
+      padding:10px 15px;
+      margin:5px;
+      font-size:14px;
+      cursor:pointer;
+      border-radius:5px;
+      border:none;
+      background:#333;
+      color:white;
+    }
+    button:hover { background:#555; }
+    iframe {
+      width:100%;
+      height:90vh;
+      border:none;
+      display:none;
+    }
   </style>
 </head>
 <body>
 
-<h1>Game Hub</h1>
+<h1>My Game Hub</h1>
 
-<button onclick="loadGame('games/game1/index.html')">Game 1</button>
-<button onclick="loadGame('games/game2/index.html')">Game 2</button>
+<div id="gameButtons"></div>
 
 <iframe id="player"></iframe>
 
 <script>
-function loadGame(path) {
-  const iframe = document.getElementById('player');
-  iframe.style.display = 'block';
-  iframe.src = path;
+const gameCount = 99; // change if needed
+const buttonsDiv = document.getElementById('gameButtons');
+const iframe = document.getElementById('player');
+
+// generate buttons automatically
+for(let i=1; i<=gameCount; i++){
+  const btn = document.createElement('button');
+  btn.textContent = "Game " + i;
+  btn.onclick = () => {
+    iframe.src = "games/game" + i + ".html";
+    iframe.style.display = "block";
+    window.scrollTo(0,iframe.offsetTop); // scroll to iframe
+  };
+  buttonsDiv.appendChild(btn);
 }
 </script>
 
