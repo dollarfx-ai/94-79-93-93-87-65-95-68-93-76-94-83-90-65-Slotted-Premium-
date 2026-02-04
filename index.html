@@ -1,62 +1,102 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>My Game Hub</title>
-  <style>
-    body {
-      font-family: Arial;
-      background:#111;
-      color:white;
-      text-align:center;
-    }
-    #gameButtons {
-      display:flex;
-      flex-wrap:wrap;
-      justify-content:center;
-      margin-bottom:20px;
-    }
-    button {
-      padding:10px 15px;
-      margin:5px;
-      font-size:14px;
-      cursor:pointer;
-      border-radius:5px;
-      border:none;
-      background:#333;
-      color:white;
-    }
-    button:hover { background:#555; }
-    iframe {
-      width:100%;
-      height:90vh;
-      border:none;
-      display:none;
-    }
-  </style>
+<meta charset="UTF-8">
+<title>My Game Hub</title>
+<style>
+body {
+  font-family: Arial, sans-serif;
+  background:#111;
+  color:white;
+  margin:0;
+  text-align:center;
+}
+
+h1 {
+  margin-top:20px;
+}
+
+#gameButtons {
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  margin:20px;
+}
+
+button {
+  padding:12px 20px;
+  margin:5px;
+  font-size:14px;
+  cursor:pointer;
+  border-radius:5px;
+  border:none;
+  background:#333;
+  color:white;
+  transition:0.2s;
+}
+
+button:hover {
+  background:#555;
+}
+
+#playerContainer {
+  display:none; /* optional iframe container */
+  width:100%;
+  height:90vh;
+}
+
+iframe {
+  width:100%;
+  height:100%;
+  border:none;
+}
+</style>
 </head>
 <body>
 
-<h1>My Game Hub</h1>
+<h1>🎮 My Game Hub 🎮</h1>
 
 <div id="gameButtons"></div>
 
-<iframe id="player"></iframe>
+<div id="playerContainer">
+  <iframe id="player"></iframe>
+  <br>
+  <button onclick="toggleFullscreen()">Fullscreen</button>
+</div>
 
 <script>
-const gameCount = 99; // change if needed
+const gameCount = 99; // number of games
 const buttonsDiv = document.getElementById('gameButtons');
 const iframe = document.getElementById('player');
+const container = document.getElementById('playerContainer');
 
-// generate buttons automatically
+// Generate buttons for all games
 for(let i=1; i<=gameCount; i++){
   const btn = document.createElement('button');
   btn.textContent = "Game " + i;
+  
   btn.onclick = () => {
-    iframe.src = "games/game" + i + ".html";
-    iframe.style.display = "block";
-    window.scrollTo(0,iframe.offsetTop); // scroll to iframe
+    // Option 1: Open game in a NEW tab (most reliable)
+    window.open("games/game" + i + ".html", "_blank");
+
+    // Option 2 (optional iframe approach):
+    // container.style.display = "block";
+    // iframe.src = "games/game" + i + ".html";
+    // window.scrollTo(0, container.offsetTop);
   };
+
   buttonsDiv.appendChild(btn);
+}
+
+// Fullscreen toggle for iframe (optional)
+function toggleFullscreen() {
+  if (iframe.requestFullscreen) {
+    iframe.requestFullscreen();
+  } else if (iframe.webkitRequestFullscreen) {
+    iframe.webkitRequestFullscreen(); // Safari
+  } else if (iframe.msRequestFullscreen) {
+    iframe.msRequestFullscreen(); // IE11
+  }
 }
 </script>
 
