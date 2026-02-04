@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>My Game Hub</title>
+<title>UGS Game Hub</title>
 <style>
 body { font-family: Arial; background:#111; color:white; margin:0; text-align:center; }
 h1 { margin-top:20px; }
@@ -15,7 +15,7 @@ iframe { width:100%; height:100%; border:none; }
 </head>
 <body>
 
-<h1>🎮 My Game Hub 🎮</h1>
+<h1>🎮 UGS Game Hub 🎮</h1>
 
 <div id="gameButtons"></div>
 
@@ -26,7 +26,7 @@ iframe { width:100%; height:100%; border:none; }
 </div>
 
 <script>
-// List of cleaned game filenames
+// cleaned game file names (replace spaces/special chars)
 const games = [
   "99_Nights.html",
   "ChickenCS.html",
@@ -35,27 +35,27 @@ const games = [
   "Smash_Hit_Ripoff.html",
   "UGS.html",
   "cl100RoomsOfEnemies.html",
-  "cl10morebullets.html",
-  // ... add all other cleaned names here
+  "cl10morebullets.html"
+  // ... add all other files, cleaned
 ];
 
-// Create buttons
 const buttonsDiv = document.getElementById('gameButtons');
 const iframe = document.getElementById('player');
 const container = document.getElementById('playerContainer');
 
-games.forEach((game) => {
+// generate buttons
+games.forEach(game => {
   const btn = document.createElement('button');
-  btn.textContent = game.replace('.html','');
+  btn.textContent = game.replace('.html',''); 
   btn.onclick = () => {
     container.style.display = 'block';
-    iframe.src = "games/" + game; // iframe loads in same tab
+    iframe.src = "games/" + game;
     window.scrollTo(0, container.offsetTop);
   };
   buttonsDiv.appendChild(btn);
 });
 
-// Fullscreen toggle
+// fullscreen
 function toggleFullscreen() {
   if (iframe.requestFullscreen) iframe.requestFullscreen();
   else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
